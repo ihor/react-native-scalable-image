@@ -4,7 +4,7 @@ React Native ```<Image/>``` component which scales width or height automatically
 
 The following example creates an image which fits the full screen width:
 
- ```
+ ```jsx
 import React from 'react';
 import { Dimensions } from 'react-native';
 import Image from 'react-native-scalable-image';
