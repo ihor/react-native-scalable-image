@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 
 export default class ScalableImage extends React.Component {
     constructor(props) {
@@ -31,13 +31,15 @@ export default class ScalableImage extends React.Component {
 
     render() {
         return (
-            <Image
-                { ...this.props }
-                style={[
-                    this.props.style,
-                    { width: this.state.width, height: this.state.height }
-                ]}
-            />
+            <TouchableOpacity onPress={this.props.onPress}>
+                <Image
+                    { ...this.props }
+                    style={[
+                        this.props.style,
+                        { width: this.state.width, height: this.state.height }
+                    ]}
+                />
+            </TouchableOpacity>
         );
     }
 }
@@ -45,4 +47,5 @@ export default class ScalableImage extends React.Component {
 ScalableImage.propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
+    onPress: React.PropTypes.function,
 };
