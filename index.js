@@ -47,5 +47,5 @@ export default class ScalableImage extends React.Component {
 ScalableImage.propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
-    onPress: React.PropTypes.function,
+    onPress: React.PropTypes.func,
 };
