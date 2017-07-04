@@ -26,6 +26,7 @@ Specify width or height which may be calculated dynamically like in the example 
 ## props
 
 | name          | type      | default                     | description             |
+| ------------- | --------- | --------------------------- | ----------------------- |
 | `height`      | number    | calculated dynamically      | image height            |
 | `width`       | number    | calculated dynamically      | image width             |
 | `maxHeight`   | number    | Number.MAX_VALUE            | maximum image height    |
