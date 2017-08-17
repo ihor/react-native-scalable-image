@@ -42,7 +42,7 @@ export default class ScalableImage extends React.Component {
             ratio = this.props.maxWidth * ratio / (width * ratio);
         }
 
-        if (height * ratio > maxHeight) {
+        if (height * ratio > this.props.maxHeight) {
             ratio = this.props.maxHeight * ratio / (height * ratio);
         }
 
