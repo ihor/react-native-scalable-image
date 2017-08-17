@@ -10,7 +10,7 @@ export default class ScalableImage extends React.Component {
         this.state = {
             width: null,
             height: null,
-        }
+        };
 
         this.onMeasure = this.onMeasure.bind(this);
     }
@@ -25,7 +25,7 @@ export default class ScalableImage extends React.Component {
     }
 
 
-    onMeasure() {
+    onMeasure(width, height) {
         let ratio;
 
         if (this.props.width && this.props.height) {
