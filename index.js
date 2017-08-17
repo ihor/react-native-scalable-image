@@ -5,36 +5,50 @@ export default class ScalableImage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.mounted = false;
+
         this.state = {
             width: null,
             height: null,
         }
+
+        this.onMeasure = this.onMeasure.bind(this);
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     componentDidMount() {
-        Image.getSize(this.props.source.uri, (width, height) => {
-            let ratio;
+        this.mounted = true;
+        Image.getSize(this.props.source.uri, this.onMeasure, console.log);
+    }
 
-            if (this.props.width && this.props.height) {
-                ratio = Math.min(this.props.width / width, this.props.height / height);
-            }
-            else if (this.props.width) {
-                ratio = this.props.width / width;
-            }
-            else if (this.props.height) {
-                ratio = this.props.height / height;
-            }
 
-            if (width * ratio > this.props.maxWidth) {
-                ratio = this.props.maxWidth * ratio / (width * ratio);
-            }
+    onMeasure() {
+        let ratio;
 
-            if (height * ratio > maxHeight) {
-                ratio = this.props.maxHeight * ratio / (height * ratio);
-            }
+        if (this.props.width && this.props.height) {
+            ratio = Math.min(this.props.width / width, this.props.height / height);
+        }
+        else if (this.props.width) {
+            ratio = this.props.width / width;
+        }
+        else if (this.props.height) {
+            ratio = this.props.height / height;
+        }
 
-            this.setState({ width: width * ratio, height: height * ratio });
-        }, console.log);
+        if (width * ratio > this.props.maxWidth) {
+            ratio = this.props.maxWidth * ratio / (width * ratio);
+        }
+
+        if (height * ratio > maxHeight) {
+            ratio = this.props.maxHeight * ratio / (height * ratio);
+        }
+
+        if (this.mounted) {
+            this.setState({width: width * ratio, height: height * ratio});
+        }
     }
 
     render() {
