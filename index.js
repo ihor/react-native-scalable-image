@@ -54,8 +54,20 @@ export default class ScalableImage extends React.Component {
     }
 
     render() {
-        return (
-            <TouchableOpacity onPress={this.props.onPress}>
+        if (this.props.onPress) {
+            return (
+                <TouchableOpacity onPress={this.props.onPress}>
+                    <Image
+                        { ...this.props }
+                        style={[
+                            this.props.style,
+                            {width: this.state.width, height: this.state.height}
+                        ]}
+                    />
+                </TouchableOpacity>
+            )
+        } else {
+            return (
                 <Image
                     { ...this.props }
                     style={[
@@ -63,14 +75,14 @@ export default class ScalableImage extends React.Component {
                         {width: this.state.width, height: this.state.height}
                     ]}
                 />
-            </TouchableOpacity>
-        )
+            )
+        }
     }
-
 
 }
 
-ScalableImage.propTypes = {
+ScalableImage
+    .propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     maxWidth: React.PropTypes.number,
