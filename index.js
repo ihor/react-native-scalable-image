@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export default class ScalableImage extends React.Component {
     constructor(props) {
@@ -8,17 +9,26 @@ export default class ScalableImage extends React.Component {
         this.state = {
             width: null,
             height: null,
-        }
+        };
+
+        this.computeAndSetRatio = this.computeAndSetRatio.bind(this);
     }
 
     componentDidMount() {
 
-        const  maxWidth = this.props.maxWidth?this.props.maxWidth:Number.MAX_VALUE;
-        const  maxHeight = this.props.maxHeight?this.props.maxHeight:Number.MAX_VALUE;
+        if (this.props.source.uri) {
+            Image.getSize(this.props.source.uri ? this.props.source.uri : this.props.source, this.computeAndSetRatio, console.log);
+        } else {
+            const source = resolveAssetSource(this.props.source);
+            this.computeAndSetRatio(source.width, source.height);
+        }
+    }
 
+    computeAndSetRatio(width, height) {
+        const maxWidth = this.props.maxWidth ? this.props.maxWidth : Number.MAX_VALUE;
+        const maxHeight = this.props.maxHeight ? this.props.maxHeight : Number.MAX_VALUE;
 
-        Image.getSize(this.props.source.uri, (width, height) => {
-            let ratio;
+        let ratio = 1;
 
         if (this.props.width && this.props.height) {
             ratio = Math.min(this.props.width / width, this.props.height / height);
@@ -31,7 +41,7 @@ export default class ScalableImage extends React.Component {
         }
 
 
-        // cosider max width
+        // consider max width
         if (width * ratio > maxWidth) {
             ratio = (maxWidth * ratio) / (width * ratio);
         }
@@ -40,24 +50,24 @@ export default class ScalableImage extends React.Component {
             ratio = (maxHeight * ratio) / (height * ratio);
         }
 
-
-        this.setState({ width: width * ratio, height: height * ratio });
-    }, console.log);
+        this.setState({width: width * ratio, height: height * ratio});
     }
 
     render() {
         return (
             <TouchableOpacity onPress={this.props.onPress}>
-    <Image
-        { ...this.props }
-        style={[
-            this.props.style,
-        { width: this.state.width, height: this.state.height }
-    ]}
-    />
-    </TouchableOpacity>
-    );
+                <Image
+                    { ...this.props }
+                    style={[
+                        this.props.style,
+                        {width: this.state.width, height: this.state.height}
+                    ]}
+                />
+            </TouchableOpacity>
+        )
     }
+
+
 }
 
 ScalableImage.propTypes = {
