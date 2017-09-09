@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Image, TouchableOpacity } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
@@ -81,9 +82,9 @@ export default class ScalableImage extends React.Component {
 }
 
 ScalableImage.propTypes = {
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    maxWidth: React.PropTypes.number,
-    maxHeight: React.PropTypes.number,
-    onPress: React.PropTypes.func,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    maxWidth: PropTypes.number,
+    maxHeight: PropTypes.number,
+    onPress: PropTypes.func,
 };

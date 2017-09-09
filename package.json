@@ -1,6 +1,6 @@
 {
   "name": "react-native-scalable-image",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "React Native Image component which scales width or height automatically to keep the aspect ratio",
   "keywords": [
@@ -27,6 +27,7 @@
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {
+    "prop-types": "^15.5.10",
     "react": "^15.4",
     "react-native": "^0.41.2"
   },
