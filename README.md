@@ -27,7 +27,7 @@ Specify width or height which may be calculated dynamically like in the example 
 
 | name          | type      | default                     | description             |
 | ------------- | --------- | --------------------------- | ----------------------- |
-| `height`      | number    | calculated dynamically      | image height            |
-| `width`       | number    | calculated dynamically      | image width             |
-| `maxHeight`   | number    | Number.MAX_VALUE            | maximum image height    |
-| `maxWidth`    | number    | Number.MAX_VALUE            | maximum image width     |
+| `height`      | number    | Calculated dynamically      | Image height            |
+| `width`       | number    | Calculated dynamically      | Image width             |
+| `maxHeight`   | number    | Number.MAX_VALUE            | Maximum image height    |
+| `maxWidth`    | number    | Number.MAX_VALUE            | Maximum image width     |

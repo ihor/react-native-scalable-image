@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export default class ScalableImage extends React.Component {
@@ -15,7 +15,6 @@ export default class ScalableImage extends React.Component {
     }
 
     componentDidMount() {
-
         if (this.props.source.uri) {
             Image.getSize(this.props.source.uri ? this.props.source.uri : this.props.source, this.computeAndSetRatio, console.log);
         } else {
@@ -39,7 +38,6 @@ export default class ScalableImage extends React.Component {
         else if (this.props.height) {
             ratio = this.props.height / height;
         }
-
 
         // consider max width
         if (width * ratio > maxWidth) {
@@ -66,7 +64,8 @@ export default class ScalableImage extends React.Component {
                     />
                 </TouchableOpacity>
             )
-        } else {
+        } 
+        else {
             return (
                 <Image
                     { ...this.props }
@@ -81,8 +80,7 @@ export default class ScalableImage extends React.Component {
 
 }
 
-ScalableImage
-    .propTypes = {
+ScalableImage.propTypes = {
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     maxWidth: React.PropTypes.number,
