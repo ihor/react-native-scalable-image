@@ -12,13 +12,21 @@ export default class ScalableImage extends React.Component {
             height: null,
         };
 
+        this.mounted = false;
+
         this.computeAndSetRatio = this.computeAndSetRatio.bind(this);
     }
 
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
     componentDidMount() {
+        this.mounted = true;
         if (this.props.source.uri) {
             Image.getSize(this.props.source.uri ? this.props.source.uri : this.props.source, this.computeAndSetRatio, console.log);
-        } else {
+        }
+        else {
             const source = resolveAssetSource(this.props.source);
             this.computeAndSetRatio(source.width, source.height);
         }
@@ -49,7 +57,9 @@ export default class ScalableImage extends React.Component {
             ratio = (maxHeight * ratio) / (height * ratio);
         }
 
-        this.setState({width: width * ratio, height: height * ratio});
+        if (this.mounted) {
+            this.setState({width: width * ratio, height: height * ratio});
+        }
     }
 
     render() {
