@@ -76,13 +76,15 @@ export default class ScalableImage extends React.Component {
                 </TouchableOpacity>
             )
         } else if (this.props.background) {
-          <ImageBackground
+          return (
+            <ImageBackground
               { ...this.props }
               style={[
                   this.props.style,
                   {width: this.state.width, height: this.state.height}
               ]}
-          />
+            />
+          )
         } else {
             return (
                 <Image
