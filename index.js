@@ -63,10 +63,14 @@ export default class ScalableImage extends React.Component {
     }
 
     render() {
+        let ImageComponent = Image
+        if (this.props.background) {
+          ImageComponent = ImageBackground
+        }
         if (this.props.onPress) {
             return (
                 <TouchableOpacity onPress={this.props.onPress}>
-                    <Image
+                    <ImageComponent
                         { ...this.props }
                         style={[
                             this.props.style,
@@ -75,19 +79,9 @@ export default class ScalableImage extends React.Component {
                     />
                 </TouchableOpacity>
             )
-        } else if (this.props.background) {
-          return (
-            <ImageBackground
-              { ...this.props }
-              style={[
-                  this.props.style,
-                  {width: this.state.width, height: this.state.height}
-              ]}
-            />
-          )
         } else {
             return (
-                <Image
+                <ImageComponent
                     { ...this.props }
                     style={[
                         this.props.style,
