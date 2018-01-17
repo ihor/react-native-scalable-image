@@ -1,108 +1,98 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Image, TouchableOpacity, ImageBackground} from 'react-native'
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Image, TouchableOpacity, ImageBackground } from 'react-native';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export default class ScalableImage extends React.Component {
-	constructor(props) {
-		super(props)
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			width : null,
-			height: null,
-		}
+        this.state = {
+            size: {
+                width: null,
+                height: null,
+            }
+        };
 
-		this.mounted = false
+        this.mounted = false;
 
-		this.computeAndSetRatio = this.computeAndSetRatio.bind(this)
-	}
+        this.computeAndSetRatio = this.computeAndSetRatio.bind(this)
+    }
 
-	componentWillUnmount() {
-		this.mounted = false
-	}
+    componentDidMount() {
+        this.mounted = true;
+        this.onProps(this.props);
+    }
 
-	componentDidMount() {
-		this.mounted = true
-		this._imageChanged(this.props)
-	}
+    componentWillUnmount() {
+        this.mounted = false;
+    }
 
-	_imageChanged(props) {
-		if (props.source.uri) {
-			Image.getSize(props.source.uri ? props.source.uri : props.source, (width, height) => this.computeAndSetRatio(width, height, props), console.log)
-		}
-		else {
-			const source = resolveAssetSource(props.source)
-			this.computeAndSetRatio(source.width, source.height, props)
-		}
-	}
+    componentWillReceiveProps(nextProps) {
+        this.onProps(nextProps);
+    }
 
-	componentWillReceiveProps(nextProps) {
-		this._imageChanged(nextProps)
-	}
-
-	computeAndSetRatio(width, height, props) {
-		const maxWidth = props.maxWidth ? props.maxWidth : Number.MAX_VALUE
-		const maxHeight = props.maxHeight ? props.maxHeight : Number.MAX_VALUE
-
-		let ratio = 1
-
-		if (props.width && props.height) {
-			ratio = Math.min(props.width / width, props.height / height)
-		}
-		else if (props.width) {
-			ratio = props.width / width
-		}
-		else if (props.height) {
-			ratio = props.height / height
-		}
-
-		// consider max width
-		if (width * ratio > maxWidth) {
-			ratio = (maxWidth * ratio) / (width * ratio)
-		}
-		// consider max height
-		if (height * ratio > maxHeight) {
-			ratio = (maxHeight * ratio) / (height * ratio)
-		}
-
-		if (this.mounted) {
-			this.setState({width: width * ratio, height: height * ratio})
-		}
-	}
-
-	    render() {
-        let ImageComponent = Image
-        if (this.props.background) {
-          ImageComponent = ImageBackground
+    onProps(props) {
+        if (props.source.uri) {
+            const source = props.source.uri ? props.source.uri : props.source;
+            Image.getSize(source, (width, height) => this.adjustSize(width, height, props), console.log);
         }
-        if (this.props.onPress) {
-            return (
-                <TouchableOpacity onPress={this.props.onPress}>
-                    <ImageComponent
-                        { ...this.props }
-                        style={[
-                            this.props.style,
-                            {width: this.state.width, height: this.state.height}
-                        ]}
-                    />
-                </TouchableOpacity>
-            )
-        } else {
-            return (
-                <ImageComponent
-                    { ...this.props }
-                    style={[
-                        this.props.style,
-                        {width: this.state.width, height: this.state.height}
-                    ]}
-                />
-            )
+        else {
+            const source = resolveAssetSource(props.source);
+            this.adjustSize(source.width, source.height, props);
         }
     }
-}
 
-ScalableImage.defaultProps = {
-  background: false
+    adjustSize(sourceWidth, sourceHeight, props) {
+        const { width, height, maxWidth, maxHeight } = props;
+
+        let ratio = 1;
+
+        if (width && height) {
+            ratio = Math.min(width / sourceWidth, height / sourceHeight);
+        }
+        else if (width) {
+            ratio = width / sourceWidth;
+        }
+        else if (height) {
+            ratio = height / sourceHeight;
+        }
+
+        if (maxWidth && sourceWidth * ratio > maxWidth) {
+            ratio = maxWidth / sourceWidth;
+        }
+
+        if (maxHeight && sourceHeight * ratio > maxHeight) {
+            ratio = maxHeight / sourceHeight;
+        }
+
+        if (this.mounted) {
+            this.setState({
+                size: {
+                    width: sourceWidth * ratio,
+                    height: sourceHeight * ratio
+                }
+            });
+        }
+    }
+
+    render() {
+        const ImageComponent = this.props.background
+            ? ImageBackground
+            : Image;
+
+        const image = <ImageComponent { ...this.props } style={[this.props.style, this.state.size]}/>;
+
+        if (!this.props.onPress) {
+            return image;
+        }
+
+        return (
+            <TouchableOpacity onPress={this.props.onPress}>
+                {image}
+            </TouchableOpacity>
+        );
+    }
 }
 
 ScalableImage.propTypes = {
@@ -111,5 +101,9 @@ ScalableImage.propTypes = {
     maxWidth: PropTypes.number,
     maxHeight: PropTypes.number,
     onPress: PropTypes.func,
-    background: PropTypes.bool
+    background: PropTypes.bool,
+};
+
+ScalableImage.defaultProps = {
+    background: false,
 };
