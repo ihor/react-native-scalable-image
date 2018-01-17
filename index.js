@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Image, TouchableOpacity} from 'react-native'
+import {Image, TouchableOpacity, ImageBackground} from 'react-native'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
 export default class ScalableImage extends React.Component {
@@ -70,39 +70,46 @@ export default class ScalableImage extends React.Component {
 		}
 	}
 
-	render() {
-		if (this.props.onPress) {
-			return (
-				<TouchableOpacity onPress={this.props.onPress}>
-					<Image
-						{...this.props}
-						style={[
-							this.props.style,
-							{width: this.state.width, height: this.state.height}
-						]}
-					/>
-				</TouchableOpacity>
-			)
-		}
-		else {
-			return (
-				<Image
-					{...this.props}
-					style={[
-						this.props.style,
-						{width: this.state.width, height: this.state.height}
-					]}
-				/>
-			)
-		}
-	}
+	    render() {
+        let ImageComponent = Image
+        if (this.props.background) {
+          ImageComponent = ImageBackground
+        }
+        if (this.props.onPress) {
+            return (
+                <TouchableOpacity onPress={this.props.onPress}>
+                    <ImageComponent
+                        { ...this.props }
+                        style={[
+                            this.props.style,
+                            {width: this.state.width, height: this.state.height}
+                        ]}
+                    />
+                </TouchableOpacity>
+            )
+        } else {
+            return (
+                <ImageComponent
+                    { ...this.props }
+                    style={[
+                        this.props.style,
+                        {width: this.state.width, height: this.state.height}
+                    ]}
+                />
+            )
+        }
+    }
+}
 
+ScalableImage.defaultProps = {
+  background: false
 }
 
 ScalableImage.propTypes = {
-	width    : PropTypes.number,
-	height   : PropTypes.number,
-	maxWidth : PropTypes.number,
-	maxHeight: PropTypes.number,
-	onPress  : PropTypes.func,
-}
+    width: PropTypes.number,
+    height: PropTypes.number,
+    maxWidth: PropTypes.number,
+    maxHeight: PropTypes.number,
+    onPress: PropTypes.func,
+    background: PropTypes.bool
+};

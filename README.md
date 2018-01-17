@@ -25,9 +25,11 @@ Specify width or height which may be calculated dynamically like in the example 
 
 ## props
 
-| name          | type      | default                     | description             |
-| ------------- | --------- | --------------------------- | ----------------------- |
-| `height`      | number    | Calculated dynamically      | Image height            |
-| `width`       | number    | Calculated dynamically      | Image width             |
-| `maxHeight`   | number    | Number.MAX_VALUE            | Maximum image height    |
-| `maxWidth`    | number    | Number.MAX_VALUE            | Maximum image width     |
+| name          | type      | default                     | description                     |
+| ------------- | --------- | --------------------------- | ------------------------------- |
+| `height`      | number    | Calculated dynamically      | Image height                    |
+| `width`       | number    | Calculated dynamically      | Image width                     |
+| `maxHeight`   | number    | Number.MAX_VALUE            | Maximum image height            |
+| `maxWidth`    | number    | Number.MAX_VALUE            | Maximum image width             |
+| `onPress`     | function  | none                        | Touchable functionality         |
+| `background`  | boolean   | false                       | Replacing with `ImageBackground`|
