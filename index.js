@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, ImageBackground, TouchableOpacity } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 export default class ScalableImage extends React.Component {
@@ -63,10 +63,14 @@ export default class ScalableImage extends React.Component {
     }
 
     render() {
+        let ImageComponent = Image
+        if (this.props.background) {
+          ImageComponent = ImageBackground
+        }
         if (this.props.onPress) {
             return (
                 <TouchableOpacity onPress={this.props.onPress}>
-                    <Image
+                    <ImageComponent
                         { ...this.props }
                         style={[
                             this.props.style,
@@ -75,10 +79,9 @@ export default class ScalableImage extends React.Component {
                     />
                 </TouchableOpacity>
             )
-        } 
-        else {
+        } else {
             return (
-                <Image
+                <ImageComponent
                     { ...this.props }
                     style={[
                         this.props.style,
@@ -91,10 +94,15 @@ export default class ScalableImage extends React.Component {
 
 }
 
+ScalableImage.defaultProps = {
+  background: false
+}
+
 ScalableImage.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     maxWidth: PropTypes.number,
     maxHeight: PropTypes.number,
     onPress: PropTypes.func,
+    background: PropTypes.bool
 };
