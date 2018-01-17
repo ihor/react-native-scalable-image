@@ -1,68 +1,76 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Image, ImageBackground, TouchableOpacity } from 'react-native';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Image, TouchableOpacity, ImageBackground} from 'react-native'
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
 export default class ScalableImage extends React.Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props)
 
-        this.state = {
-            width: null,
-            height: null,
-        };
+		this.state = {
+			width : null,
+			height: null,
+		}
 
-        this.mounted = false;
+		this.mounted = false
 
-        this.computeAndSetRatio = this.computeAndSetRatio.bind(this);
-    }
+		this.computeAndSetRatio = this.computeAndSetRatio.bind(this)
+	}
 
-    componentWillUnmount() {
-        this.mounted = false;
-    }
+	componentWillUnmount() {
+		this.mounted = false
+	}
 
-    componentDidMount() {
-        this.mounted = true;
-        if (this.props.source.uri) {
-            Image.getSize(this.props.source.uri ? this.props.source.uri : this.props.source, this.computeAndSetRatio, console.log);
-        }
-        else {
-            const source = resolveAssetSource(this.props.source);
-            this.computeAndSetRatio(source.width, source.height);
-        }
-    }
+	componentDidMount() {
+		this.mounted = true
+		this._imageChanged(this.props)
+	}
 
-    computeAndSetRatio(width, height) {
-        const maxWidth = this.props.maxWidth ? this.props.maxWidth : Number.MAX_VALUE;
-        const maxHeight = this.props.maxHeight ? this.props.maxHeight : Number.MAX_VALUE;
+	_imageChanged(props) {
+		if (props.source.uri) {
+			Image.getSize(props.source.uri ? props.source.uri : props.source, (width, height) => this.computeAndSetRatio(width, height, props), console.log)
+		}
+		else {
+			const source = resolveAssetSource(props.source)
+			this.computeAndSetRatio(source.width, source.height, props)
+		}
+	}
 
-        let ratio = 1;
+	componentWillReceiveProps(nextProps) {
+		this._imageChanged(nextProps)
+	}
 
-        if (this.props.width && this.props.height) {
-            ratio = Math.min(this.props.width / width, this.props.height / height);
-        }
-        else if (this.props.width) {
-            ratio = this.props.width / width;
-        }
-        else if (this.props.height) {
-            ratio = this.props.height / height;
-        }
+	computeAndSetRatio(width, height, props) {
+		const maxWidth = props.maxWidth ? props.maxWidth : Number.MAX_VALUE
+		const maxHeight = props.maxHeight ? props.maxHeight : Number.MAX_VALUE
 
-        // consider max width
-        if (width * ratio > maxWidth) {
-            ratio = (maxWidth * ratio) / (width * ratio);
-        }
-        // consider max height
-        if (height * ratio > maxHeight) {
-            ratio = (maxHeight * ratio) / (height * ratio);
-        }
+		let ratio = 1
 
-        if (this.mounted) {
-            this.setState({width: width * ratio, height: height * ratio});
-        }
-    }
+		if (props.width && props.height) {
+			ratio = Math.min(props.width / width, props.height / height)
+		}
+		else if (props.width) {
+			ratio = props.width / width
+		}
+		else if (props.height) {
+			ratio = props.height / height
+		}
 
-    render() {
+		// consider max width
+		if (width * ratio > maxWidth) {
+			ratio = (maxWidth * ratio) / (width * ratio)
+		}
+		// consider max height
+		if (height * ratio > maxHeight) {
+			ratio = (maxHeight * ratio) / (height * ratio)
+		}
+
+		if (this.mounted) {
+			this.setState({width: width * ratio, height: height * ratio})
+		}
+	}
+
+	    render() {
         let ImageComponent = Image
         if (this.props.background) {
           ImageComponent = ImageBackground
@@ -91,7 +99,6 @@ export default class ScalableImage extends React.Component {
             )
         }
     }
-
 }
 
 ScalableImage.defaultProps = {
