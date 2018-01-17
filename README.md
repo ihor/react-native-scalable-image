@@ -9,7 +9,12 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import Image from 'react-native-scalable-image';
 
-const image = <Image width={Dimensions.get('window').width} source={{uri: '<image uri>'}} />;
+const image = (
+    <Image
+        width={Dimensions.get('window').width} // height will be calculated automatically
+        source={{uri: '<image uri>'}}
+    />
+);
  ```
 
 
