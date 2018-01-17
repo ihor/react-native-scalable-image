@@ -58,6 +58,7 @@ export default class ScalableImage extends React.Component {
             ratio = height / sourceHeight;
         }
 
+        // Deprecated stuff. Added the PR by mistake. You should use only width and height props
         if (maxWidth && sourceWidth * ratio > maxWidth) {
             ratio = maxWidth / sourceWidth;
         }
@@ -98,8 +99,6 @@ export default class ScalableImage extends React.Component {
 ScalableImage.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    maxWidth: PropTypes.number,
-    maxHeight: PropTypes.number,
     onPress: PropTypes.func,
     background: PropTypes.bool,
 };
