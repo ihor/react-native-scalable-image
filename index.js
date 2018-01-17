@@ -15,8 +15,6 @@ export default class ScalableImage extends React.Component {
         };
 
         this.mounted = false;
-
-        this.computeAndSetRatio = this.computeAndSetRatio.bind(this)
     }
 
     componentDidMount() {
