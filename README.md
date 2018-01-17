@@ -29,7 +29,7 @@ Specify width or height which may be calculated dynamically like in the example 
 | ------------- | --------- | --------------------------- | --------------------------------------|
 | `height`      | number    | Calculated dynamically      | Image height                          |
 | `width`       | number    | Calculated dynamically      | Image width                           |
-| `maxHeight`   | number    | Number.MAX_VALUE            | Maximum image height                  |
-| `maxWidth`    | number    | Number.MAX_VALUE            | Maximum image width                   |
+| `maxHeight`   | number    | none                        | Maximum image height                  |
+| `maxWidth`    | number    | none                        | Maximum image width                   |
 | `onPress`     | function  | none                        | onPress callback                      |
 | `background`  | boolean   | false                       | Set to true when used as a background |
