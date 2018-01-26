@@ -1,6 +1,8 @@
 React Native Scalable Image
 ===========================
-React Native ```<Image/>``` component which scales width or height automatically to keep the aspect ratio. Is useful when you need to display an entire network image but don't know its size and can limit it only by width or height.
+React Native ```<Image/>``` component [does not keep image aspect ratio](https://github.com/facebook/react-native/issues/858) which results in the image being stretched or cropped. ```react-native-scalable-image``` solves this problem by calculating the image size and resizing the image when rendering.
+
+This library provides an ```<Image/>``` component which scales width or height automatically to keep the aspect ratio. It is useful when you don't know the aspect ratio in advance (e.g. user-uploaded content) but want to display the entire image and limit it only by width or height to fit the container component.
 
 The following example creates an image which fits the full screen width and keeps the aspect ratio:
 
@@ -30,9 +32,11 @@ Specify width or height which may be calculated dynamically like in the example 
 
 ## props
 
-| name          | type      | default                     | description                           |
-| ------------- | --------- | --------------------------- | --------------------------------------|
-| `height`      | number    | none                        | Maximum image height                  |
-| `width`       | number    | none                        | Maximum image width                   |
-| `onPress`     | function  | none                        | onPress callback                      |
-| `background`  | boolean   | false                       | Set to true when used as a background |
+| name          | type      | default                     | description                                                               |
+| ------------- | --------- | --------------------------- | --------------------------------------------------------------------------|
+| `height`      | number    | none                        | Maximum image height                                                      |
+| `width`       | number    | none                        | Maximum image width                                                       |
+| `background`  | boolean   | false                       | Set to true when used as a background                                     |
+| `onPress`     | function  | none                        | onPress callback                                                          |
+| `onSize`      | function  | none                        | Is called with { width, height } as the arg when image size is calculated |
+

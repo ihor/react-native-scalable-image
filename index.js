@@ -71,7 +71,7 @@ export default class ScalableImage extends React.Component {
                     width: sourceWidth * ratio,
                     height: sourceHeight * ratio
                 }
-            });
+            }, () => this.props.onSize(this.state.size));
         }
     }
 
@@ -98,9 +98,11 @@ ScalableImage.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     onPress: PropTypes.func,
+    onSize: PropTypes.func,
     background: PropTypes.bool,
 };
 
 ScalableImage.defaultProps = {
     background: false,
+    onSize: size => {}
 };
