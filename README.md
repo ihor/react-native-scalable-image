@@ -40,3 +40,8 @@ Specify width or height which may be calculated dynamically like in the example 
 | `onPress`     | function  | none                        | onPress callback                                                          |
 | `onSize`      | function  | none                        | Is called with ```{ width, height }``` as the arg when image size is calculated |
 
+Versions
+========
+| React Native Version | Scalable Image Version |
+| <= 0.58              | <= 0.5.1               |
+| >= 0.59              | 0.6.0                  |
