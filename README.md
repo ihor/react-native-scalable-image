@@ -42,6 +42,8 @@ Specify width or height which may be calculated dynamically like in the example 
 
 Versions
 ========
+
 | React Native Version | Scalable Image Version |
+| -------------------- | ---------------------- |
 | <= 0.58              | <= 0.5.1               |
 | >= 0.59              | 0.6.0                  |
