@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, TouchableOpacity, ImageBackground } from 'react-native';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+const resolveAssetSource = Image.resolveAssetSource;
 
 export default class ScalableImage extends React.Component {
     constructor(props) {
