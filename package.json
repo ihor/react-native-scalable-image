@@ -29,10 +29,10 @@
   "devDependencies": {},
   "peerDependencies": {
     "@types/react": "^16.8.23",
-    "@types/react-native": "^0.60.2",
+    "@types/react-native": "<=0.60.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
-    "react-native": "^0.59.0"
+    "react-native": "<=0.59.0"
   },
   "scripts": {}
 }
