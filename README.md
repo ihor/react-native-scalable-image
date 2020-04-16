@@ -32,14 +32,14 @@ Specify width or height which may be calculated dynamically like in the example 
 
 ## props
 
-| name          | type      | default                     | description                                                               |
-| ------------- | --------- | --------------------------- | --------------------------------------------------------------------------|
-| `height`      | number    | none                        | Maximum image height                                                      |
-| `width`       | number    | none                        | Maximum image width                                                       |
-| `background`  | boolean   | false                       | Set to true when used as a background                                     |
-| `component`   | boolean   | none                        | Custom image component                                                    |
-| `onPress`     | function  | none                        | onPress callback                                                          |
-| `onSize`      | function  | none                        | Is called with ```{ width, height }``` as the first arg once image size is calculated |
+| name          | type            | default                     | description                                                               |
+| ------------- | --------------- | --------------------------- | --------------------------------------------------------------------------|
+| `height`      | number          | none                        | Maximum image height                                                      |
+| `width`       | number          | none                        | Maximum image width                                                       |
+| `background`  | boolean         | false                       | Set to true when used as a background                                     |
+| `component`   | React.ReactNode | none                        | Custom image component                                                    |
+| `onPress`     | function        | none                        | onPress callback                                                          |
+| `onSize`      | function        | none                        | Is called with ```{ width, height }``` as the first arg once image size is calculated |
 
 Versions
 ========
