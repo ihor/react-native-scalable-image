@@ -1,6 +1,6 @@
 React Native Scalable Image
 ===========================
-React Native ```<Image/>``` component [does not keep the image aspect ratio](https://github.com/facebook/react-native/issues/858), which results in the image being stretched or cropped. ```react-native-scalable-image``` solves this problem by calculating the image size and resizing the image when rendering.
+React Native ```<Image/>``` component [does not keep the image aspect ratio](https://github.com/facebook/react-native/issues/858), which results in the image being stretched or cropped. ```react-native-scalable-image``` solves this problem by calculating the image size and resizing the image when rendering which is easy and effective.
 
 This library provides an ```<Image/>``` component which scales width or height automatically to keep the aspect ratio. It is useful when you don't know the aspect ratio in advance (e.g. user-uploaded content) but want to display the entire image and limit it only by width or height to fit the container component.
 
