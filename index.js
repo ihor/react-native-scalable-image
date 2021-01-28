@@ -34,7 +34,7 @@ const ScalableImage = props => {
 
     useEffect(() => {
         onProps(props);
-    });
+    }, []);
 
     useEffect(() => {
         setImage(
