@@ -18,8 +18,8 @@ const ScalableImage = props => {
     const ImageComponent = props.component
         ? props.component
         : props.background
-        ? ImageBackground
-        : Image;
+            ? ImageBackground
+            : Image;
 
     const [scalableWidth, setScalableWidth] = useState(null);
     const [scalableHeight, setScalableHeight] = useState(null);
@@ -36,7 +36,7 @@ const ScalableImage = props => {
 
     useEffect(() => {
         onProps(props);
-    }, []);
+    });
 
     useEffect(() => {
         setImage(
@@ -48,7 +48,7 @@ const ScalableImage = props => {
                 }]}
             />
         );
-    }, [props, scalableHeight, scalableWidth]);
+    }, [scalableHeight, scalableWidth]);
 
     const onProps = localProps => {
         const { source } = localProps;
