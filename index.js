@@ -15,7 +15,9 @@ import {
 const resolveAssetSource = Image.resolveAssetSource;
 
 const ScalableImage = props => {
-    const ImageComponent = props.background
+    const ImageComponent = props.component
+        ? props.component
+        : props.background
         ? ImageBackground
         : Image;
 

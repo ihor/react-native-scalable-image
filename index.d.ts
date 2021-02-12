@@ -1,5 +1,5 @@
 import { ImageProps } from 'react-native'
-import { Component } from 'react'
+import React, { Component } from 'react'
 
 interface IOnSizeParams {
   width: number,
@@ -10,6 +10,7 @@ interface IImageProps extends ImageProps {
   height?: number,
   width?: number,
   background?: boolean,
+  component?: React.ReactNode,
   onPress?: () => void,
   onSize?: (onSizeParams: IOnSizeParams) => void,
 }
