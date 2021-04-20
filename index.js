@@ -72,6 +72,9 @@ const ScalableImage = props => {
     const adjustSize = (sourceWidth, sourceHeight, localProps) => {
         const { width, height } = localProps;
 
+        sourceWidth = Math.max(sourceWidth, 1);
+        sourceHeight = Math.max(sourceWidth, 1);
+
         let ratio = 1;
 
         if (width && height) {
@@ -95,16 +98,11 @@ const ScalableImage = props => {
         }
     };
 
-    if (!props.onPress) {
-        return image;
-    }
-    else {
-        return (
-            <TouchableOpacity onPress={props.onPress}>
-                {image}
-            </TouchableOpacity>
-        );
-    }
+    return !props.onPress ? image : (
+      <TouchableOpacity onPress={props.onPress}>
+        {image}
+      </TouchableOpacity>
+    );
 };
 
 ScalableImage.propTypes = {
